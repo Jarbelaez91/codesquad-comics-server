@@ -4,7 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon app.js"
   },
   "author": "",
   "license": "ISC",
@@ -12,9 +13,5 @@
     "cors": "^2.8.5",
     "express": "^5.1.0",
     "helmet": "^8.1.0"
-  },
-  "devDependencies": {
-    "morgan": "^1.10.0",
-    "nodemon": "^3.1.10"
   }
 }
