@@ -11,7 +11,7 @@ const helmet = require ("helmet")
 const path = require ("node:path")
 
 const bookRoutes = require ("./routes/bookRoutes")
-// const authorRoutes = require ("./routes/authorRoutes")
+const authRoutes = require ("./routes/authRoutes")
 
 app.use(express.json());
 
@@ -25,6 +25,8 @@ app.use (cors())
 app.use (morgan("combined"))
 app.use (helmet())
 
+
+
 app.get ("/", (request, response, next) => {
         // response.send("This is the home page")
 
@@ -36,7 +38,7 @@ app.get ("/", (request, response, next) => {
 
 
 app.use("/api/books", bookRoutes);
-// app.use("/api/authors", authorRoutes);
+app.use("/auth", authRoutes)
 
 
 app.listen (PORT, () => {
