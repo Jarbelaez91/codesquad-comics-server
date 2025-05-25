@@ -1,4 +1,3 @@
-const { response } = require("express")
 
 const register = async (request, response, next) => {
     const {firstName, lastName, username, password } = request.body
@@ -16,13 +15,15 @@ const register = async (request, response, next) => {
     
     return response.status(201).json ({
         success: {message: "new user created"},
-        data: {newUser}
+        data: {newUser},
+        statusCode:201,
     })
 } catch (error) {
     console.error("error", error)
     
     return response.status (500).json ({
-        error: {message: "internal server error"}
+        error: {message: "internal server error"},
+        statusCode: 500,
     })
 }
 }
@@ -31,6 +32,7 @@ const register = async (request, response, next) => {
 const login = async (request, response, next) => {
     return response.status(200).json ({
         success: {message: "user logged in"},
+        statusCode: 200,
     })
 }
 
@@ -51,6 +53,7 @@ const logout = async (request, response, next) => {
     
     return response.status(200).json ({
         success: {message: "user logged out"},
+        statusCode: 200,
     })
 }
 
@@ -71,7 +74,8 @@ const localLogin = async (request, response, next) => {
     
     return response.status(200).json ({
         success: {message: "login successful"},
-        result: result
+        result: result,
+        statusCode: 200,
     })
 } 
 
