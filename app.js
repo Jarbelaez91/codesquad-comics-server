@@ -1,3 +1,11 @@
+require("dotenv").config()
+
+require("./config/connection")
+
+require("./config/authStrategy")
+
+
+
 const express = require("express");
 
 const app = express()
@@ -9,6 +17,8 @@ const morgan = require ("morgan")
 const helmet = require ("helmet")
 
 const path = require ("node:path")
+
+const mongoose =require("mongoose")
 
 const bookRoutes = require ("./routes/bookRoutes")
 const authRoutes = require ("./routes/authRoutes")
@@ -39,6 +49,8 @@ app.get ("/", (request, response, next) => {
 
 app.use("/api/books", bookRoutes);
 app.use("/auth", authRoutes)
+
+
 
 
 app.listen (PORT, () => {
