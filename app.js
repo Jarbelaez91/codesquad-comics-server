@@ -29,13 +29,15 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-const PORT = 8080
+const PORT = process.env.PORT || 8080
 
-app.use (cors())
+app.use (cors({credentials: true, origin: ture}))
 app.use (morgan("combined"))
 app.use (helmet())
 
-
+const bookRoutes = require ("./routes/bookRoutes")
+const authorRoutes = require ("./routes/authorRoutes")
+const authRoutes = require ("./routes/authRoutes")
 
 app.get ("/", (request, response, next) => {
         // response.send("This is the home page")
