@@ -50,6 +50,7 @@ app.get ("/", (request, response, next) => {
 
 
 app.use("/api/books", bookRoutes);
+app.use("/api/authors", authorRoutes)
 app.use("/auth", authRoutes)
 
 
