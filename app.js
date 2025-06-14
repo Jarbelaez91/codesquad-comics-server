@@ -5,23 +5,25 @@ require("./config/connection")
 require("./config/authStrategy")
 
 
-
 const express = require("express");
-
-const app = express()
-
-const cors = require ("cors")
 
 const morgan = require ("morgan")
 
+const path = require ("node:path")
+
 const helmet = require ("helmet")
 
-const path = require ("node:path")
+const cors = require ("cors")
 
 const mongoose =require("mongoose")
 
-const bookRoutes = require ("./routes/bookRoutes")
-const authRoutes = require ("./routes/authRoutes")
+const app = express()
+
+app.use (helmet())
+app.use (cors({credentials: true, origin: true}))
+app.use (morgan("combined"))
+
+
 
 app.use(express.json());
 
@@ -29,14 +31,11 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-const PORT = process.env.PORT || 8080
+const PORT = process.env.PORT || 3000
 
-app.use (cors({credentials: true, origin: ture}))
-app.use (morgan("combined"))
-app.use (helmet())
 
 const bookRoutes = require ("./routes/bookRoutes")
-const authorRoutes = require ("./routes/authorRoutes")
+// const authorRoutes = require ("./routes/authorRoutes")
 const authRoutes = require ("./routes/authRoutes")
 
 app.get ("/", (request, response, next) => {
@@ -50,11 +49,29 @@ app.get ("/", (request, response, next) => {
 
 
 app.use("/api/books", bookRoutes);
-app.use("/api/authors", authorRoutes)
+// app.use("/api/authors", authorRoutes)
 app.use("/auth", authRoutes)
 
+app.use((error, request, response, next) => {
+    let condition = error.code === 11000
 
+    console.log(condition)
 
+    if (condition) {
+      return response.status(error.status || 400).json({
+        error: {message: "Error detected!!!"},
+        statusCode: error.status || 400,
+        })
+        
+    } else {
+        console.log("We passed the error handling middleware, you're good to go")
+    }
+
+    return response.status(error.status || 500).json({
+      error: {message: error.message || "Internal server error, oh no!"},
+      statusCode: error.status || 500
+    })
+})
 
 app.listen (PORT, () => {
     console.log (`this server is listening on port ${PORT}`)

@@ -1,6 +1,6 @@
 const mongoose = require ("mongoose")
 
-const {schema} = mongoose
+const {Schema} = mongoose
 
 const bookSchema = new Schema ({
     title: {
@@ -28,7 +28,10 @@ const bookSchema = new Schema ({
     },
 
     rating: {
-        type:String
+        type:Number,
+        required: true,
+        min:[1],
+        max:[5]
     },
 
     synopsis: {
