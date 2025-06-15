@@ -19,7 +19,7 @@ const mongoose =require("mongoose")
 
 const app = express()
 
-app.use (helmet())
+app.use (helmet({contentSecurityPolicy:false}))
 app.use (cors({credentials: true, origin: true}))
 app.use (morgan("combined"))
 
@@ -48,9 +48,28 @@ app.get ("/", (request, response, next) => {
 })
 
 
+app.use(
+    session({
+        resave: false,
+        saveUninitialized: false,
+        secret: process.env.SECRET_KEY,
+
+        cookie:{
+            httpOnly: true,
+            secure: false,
+            maxAge: 1000 * 60 * 60 *24,
+        }
+    })
+)
+
+app.use(passport.initialize())
+app.use(passport.session())
+
 app.use("/api/books", bookRoutes);
 // app.use("/api/authors", authorRoutes)
 app.use("/auth", authRoutes)
+
+
 
 app.use((error, request, response, next) => {
     let condition = error.code === 11000
