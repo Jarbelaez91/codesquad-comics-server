@@ -1,6 +1,6 @@
 const mongoose = require ("mongoose")
 
-const {schema} = mongoose
+const {Schema} = mongoose
 
 const userSchema = new Schema ({
     firstName:{
@@ -13,7 +13,7 @@ const userSchema = new Schema ({
         type:String,
         trim:true
     },
-    userName:{
+    username:{
         type:String,
         required: true,
         unique: true,

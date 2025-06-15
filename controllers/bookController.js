@@ -42,13 +42,13 @@ const createBook = async (request, response, next) => {
     const {title, author, publisher, genre, pages, rating, synopsis, imageUrl} = request.body
 
     try {
-        if (!title, author, pages) {
+        if (!title || !author ||!pages) {
             throw new Error ("missing required fields, please review")
         }
 
-    const newBook = {
+    const newBook = new Book({
        title, author, publisher, genre, pages, rating, synopsis, imageUrl
-    }
+    })
 
     await newBook.save()
 
@@ -69,7 +69,7 @@ const updateBook = async (request, response, next) => {
 
     try {
 
-        if (!title, author ,pages) {
+        if (!title || !author ||!pages) {
             throw new Error ("missing required fields")
         }
 
