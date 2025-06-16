@@ -42,7 +42,7 @@ const createBook = async (request, response, next) => {
     const {title, author, publisher, genre, pages, rating, synopsis, imageUrl} = request.body
 
     try {
-        if (!title, author, pages) {
+        if (!title || !author || !pages) {
             throw new Error ("missing required fields, please review")
         }
 
@@ -69,12 +69,12 @@ const updateBook = async (request, response, next) => {
 
     try {
 
-        if (!title, author ,pages) {
+        if (!title || !author || !pages) {
             throw new Error ("missing required fields")
         }
 
-        const updateBook = await Book.findByIdAndUpdate
-        id,(
+        const updateBook = await Book.findByIdAndUpdate(
+        id,
             {
                 $set: {
             title,
