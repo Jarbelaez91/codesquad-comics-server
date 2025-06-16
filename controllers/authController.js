@@ -45,7 +45,7 @@ const signupRequest = async (request, response, next) => {
   }
 };
 
-const loginLocal = async (request, response, next) => {
+const localLogin = async (request, response, next) => {
   passport.authenticate("local", (err, user, info) => {
     if (err) return next(err);
 
@@ -56,7 +56,7 @@ const loginLocal = async (request, response, next) => {
       });
     }
 
-    request.login(newUser, (err) => {
+    request.login(user, (err) => {
       if (err) {
         return next(err);
       }
@@ -94,36 +94,6 @@ const logoutRequest = async (request, response, next) => {
       succes: { message: "user logged out" },
       statusCode: 200,
     });
-  });
-  console.log("initializing logout controller logic");
-
-  function sessionDestruction(err) {
-    if (err) {
-      return next(err);
-    }
-  }
-  sessionDestruction();
-
-  return response.status(200).json({
-    success: { message: "user logged out" },
-    statusCode: 200,
-  });
-};
-
-const localLogin = async (request, response, next) => {
-  const result = true;
-
-  function mockPassport(err, user) {
-    if (err) {
-      return next(err);
-    }
-  }
-  mockPassport();
-
-  return response.status(200).json({
-    success: { message: "login successful" },
-    result: result,
-    statusCode: 200,
   });
 };
 
