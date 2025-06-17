@@ -16,6 +16,8 @@ const helmet = require ("helmet")
 const cors = require ("cors")
 
 const mongoose =require("mongoose")
+const session = require("express-session")
+const passport = require("passport")
 
 const app = express()
 
