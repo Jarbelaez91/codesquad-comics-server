@@ -112,7 +112,7 @@ const deleteBook = async (request, response, next) => {
             throw new Error ("id is required")
         }
 
-        await Book.findByIdAndDelete(_id)
+        await Book.findByIdAndDelete(id)
 
         return response.status(200).json ({
             success: {message: "book deleted"} ,
